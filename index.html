@@ -160,6 +160,17 @@ svg .w { fill: var(--white); }
 .film { padding: 0; background: #000; }
 .film video { position: absolute; inset: 0; width: 1920px; height: 1080px; display: block; image-rendering: pixelated; }
 
+/* ---------- AGI is here? ---------- */
+.agiq .q { position: absolute; left: calc(var(--m) - 14px); bottom: 132px; font-stretch: 125%; font-weight: 820; font-size: 360px; line-height: 0.88; letter-spacing: -0.045em; }
+.agiq .qm { margin-left: 0.02em; }
+.white.agiq .qm { color: var(--blue); }
+
+/* ---------- Musikvideo ---------- */
+.mv { padding: 0; background: var(--ink); }
+.mv video { position: absolute; inset: 0; width: 1920px; height: 1080px; display: block; object-fit: contain; background: var(--ink); }
+.mv .credit { position: absolute; left: var(--m); bottom: 48px; color: var(--white); text-shadow: 0 1px 10px rgba(11, 16, 32, 0.7); transition: opacity 400ms var(--ease); }
+.mv.playing .credit { opacity: 0; }
+
 /* ---------- Quellen ---------- */
 .sources .srcs { list-style: none; margin-top: 64px; max-width: 1680px; }
 .sources .srcs li { display: grid; grid-template-columns: 440px 1fr; gap: 40px; padding: 9px 0; border-bottom: 1px solid var(--ink); }
@@ -313,6 +324,8 @@ svg .halo { paint-order: stroke; stroke: #fff; stroke-width: 12px; stroke-linejo
     <video class="clip" src="img/rubin-taste.mp4" poster="img/rubin-taste-poster.jpg" preload="auto" playsinline aria-label="Rick Rubin bei 60 Minutes: Gefragt, wofür er bezahlt wird, nennt er das Vertrauen in seinen Geschmack."></video>
     <div class="side"><p class="s36"><b>Jagged Frontier:</b> KI ist bei manchen Aufgaben übermenschlich, bei anderen schwach. Die Grenze ist zackig und unsichtbar.</p><p class="s24 link"><a href="https://www.oneusefulthing.org/p/centaurs-and-cyborgs-on-the-jagged" target="_blank" rel="noopener">Ethan Mollick: Centaurs and Cyborgs on the Jagged Frontier, 16.9.2023</a></p></div>
     <p class="s24 source">Begriff: Dell’Acqua, Mollick u.&nbsp;a., Harvard Business School 2023. Video: CBS 60 Minutes, 15.1.2023, Rick Rubin im Gespräch mit Anderson Cooper.</p></section>
+<section class="slide white agiq" data-notes="Nur die Frage stehen lassen. Kurze Pause. Dann das Musikvideo."><h2 class="q">AGI<br>is here<span class="qm">?</span></h2></section>
+<section class="slide mv" data-notes="Musikvideo «I’m Your Slop (Slopcore)» von javiexmachina, veröffentlicht am 11. Oktober 2026, 4 Minuten. Laut dem Macher: vier Tage Gespräch mit Claude für den Song, 55’000 Zeilen Code, 282 erzeugte Clips, davon 99 verwendet. Erstes Weiter startet das Video, das nächste geht zur Schlussfolie."><video src="img/slopcore.mp4" poster="img/slopcore-poster.jpg" preload="metadata" playsinline aria-label="Musikvideo I’m Your Slop (Slopcore) von javiexmachina, mit KI erzeugt"></video><p class="s24 credit">Musikvideo: javiexmachina, «I’M YOUR SLOP (SLOPCORE)», YouTube, 11.10.2026</p></section>
 <section class="slide blue end" data-notes="Danke. Fragen? Die Lernumgebung ist öffentlich, die Musterlösungen nicht."><img class="trinity" src="img/trinity.jpg" alt="Trinity aus The Matrix"><div class="logo">
 <svg id="Ebene_1" data-name="Ebene 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 312.36 85.04">
   <defs>
@@ -399,6 +412,10 @@ svg .halo { paint-order: stroke; stroke: #fff; stroke-width: 12px; stroke-linejo
     if (v && !v.dataset.played) { v.dataset.played = "1"; v.play(); return; }
     show(i + 1);
   };
+  document.querySelectorAll("video").forEach((v) => {
+    v.addEventListener("play", () => v.closest(".slide").classList.add("playing"));
+    v.addEventListener("pause", () => v.closest(".slide").classList.remove("playing"));
+  });
   const fromHash = () => { const n = parseInt(location.hash.slice(1), 10); return Number.isFinite(n) ? n - 1 : 0; };
   addEventListener("resize", fit);
   addEventListener("hashchange", () => show(fromHash(), false));
